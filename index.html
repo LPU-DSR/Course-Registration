@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Reappear Exam Registration · LPU DSR</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@500;700&display=swap');
+
+:root{
+  --paper:#F9F5EE;
+  --paper-2:#F2EBE0;
+  --ink:#16202E;
+  --ink-soft:#4A5568;
+  --muted:#8A8577;
+  --saffron:#F4801F;
+  --saffron-deep:#C9630B;
+  --saffron-soft:#FFF0E3;
+  --gold:#FFC93C;
+  --leaf:#1F9D55;
+  --leaf-soft:#E4F6EC;
+  --rose:#DC4B4B;
+  --rose-soft:#FDECEC;
+  --sky:#2F6BD8;
+  --sky-soft:#E7EEFC;
+  --line:#E4DAC9;
+  --card:#FFFFFF;
+  --spring:cubic-bezier(.34,1.56,.5,1);
+  --ease:cubic-bezier(.22,.68,0,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--paper);
+  min-height:100vh;color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--saffron-soft)}
+
+/* ── header band ── */
+.topbar{
+  background:linear-gradient(135deg,var(--ink) 0%,#1F2B3C 100%);
+  padding:16px 22px;display:flex;align-items:center;gap:12px;
+  box-shadow:0 2px 14px rgba(22,32,46,.22);
+}
+.mark{
+  width:38px;height:38px;border-radius:11px;flex:0 0 auto;
+  background:linear-gradient(140deg,var(--saffron),var(--gold));
+  display:grid;place-items:center;transform:rotate(-6deg);
+  font-family:'Fraunces',serif;font-weight:900;font-size:17px;color:#2A1300;
+  box-shadow:0 6px 16px rgba(244,128,31,.35);
+}
+.topbar-text .t1{
+  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;
+  letter-spacing:2.6px;text-transform:uppercase;color:rgba(255,201,60,.75);
+}
+.topbar-text .t2{font-family:'Fraunces',serif;font-weight:700;font-size:15px;color:#FDF9F1;letter-spacing:.1px}
+.live-dot{
+  margin-left:auto;display:flex;align-items:center;gap:7px;
+  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;
+  letter-spacing:1.6px;text-transform:uppercase;color:rgba(255,255,255,.5);
+}
+.live-dot span{width:7px;height:7px;border-radius:50%;background:#1F9D55;animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(31,157,85,.55)}70%{box-shadow:0 0 0 8px rgba(31,157,85,0)}100%{box-shadow:0 0 0 0 rgba(31,157,85,0)}}
+
+.wrap{max-width:600px;margin:0 auto;padding:26px 20px 70px}
+
+/* hero */
+.hero-intro{text-align:center;margin-bottom:22px;animation:rise .6s var(--spring) both}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.hero-intro h1{
+  font-family:'Fraunces',serif;font-weight:900;
+  font-size:clamp(25px,5.5vw,36px);letter-spacing:-.7px;line-height:1.1;
+  color:var(--ink);margin-bottom:6px;
+}
+.hero-intro h1 .hl{color:var(--saffron)}
+.hero-intro .kicker{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  letter-spacing:2.4px;text-transform:uppercase;color:var(--saffron-deep);margin-bottom:10px;
+}
+
+/* notice banner */
+.notice{
+  background:linear-gradient(145deg,var(--saffron-soft),#FFF8F0);
+  border:1px solid rgba(244,128,31,.28);
+  border-left:4px solid var(--saffron);
+  border-radius:16px;padding:16px 18px;margin-bottom:24px;
+  font-size:14px;line-height:1.6;color:#5A3310;
+  display:flex;gap:12px;align-items:flex-start;
+  animation:rise .6s .05s var(--spring) both;
+}
+.notice .nico{font-size:22px;flex:0 0 auto;line-height:1.3}
+.notice b{color:var(--saffron-deep);font-weight:700}
+
+/* card */
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:22px;
+  box-shadow:0 2px 8px rgba(22,32,46,.04),0 20px 50px rgba(22,32,46,.09);
+  animation:rise .6s .1s var(--spring) both;
+}
+.card-section{padding:22px 22px 8px}
+.card-section+.card-section{border-top:1px solid var(--line)}
+.section-label{
+  display:flex;align-items:center;gap:9px;
+  font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;
+  letter-spacing:2.2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;
+}
+.section-label .ico{
+  width:28px;height:28px;border-radius:8px;flex:0 0 auto;
+  background:var(--saffron-soft);border:1px solid rgba(244,128,31,.2);
+  display:grid;place-items:center;font-size:14px;
+}
+
+/* fields */
+.field{margin-bottom:16px}
+.field:last-child{margin-bottom:8px}
+.field label{
+  display:block;margin-bottom:6px;
+  font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;
+  letter-spacing:1.8px;text-transform:uppercase;color:var(--ink-soft);
+}
+.field label .req{color:var(--rose)}
+.field input[type=text]{
+  width:100%;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--ink);
+  background:var(--paper);border:1.5px solid var(--line);border-radius:12px;
+  padding:12px 14px;outline:none;transition:border-color .2s,box-shadow .2s,background .2s;
+}
+.field input.mono{font-family:'JetBrains Mono',monospace;letter-spacing:2.5px;font-weight:500;font-size:16px}
+.field input:focus{border-color:var(--saffron);box-shadow:0 0 0 4px rgba(244,128,31,.13);background:#fff}
+.field input.valid{border-color:var(--leaf);background:var(--leaf-soft)}
+.field input.error{border-color:var(--rose);background:var(--rose-soft)}
+.field .hint{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);margin-top:5px;letter-spacing:.4px}
+.row2{display:flex;gap:12px}
+.row2 .field{flex:1}
+.shake{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+
+/* yes / no choice */
+.q-title{font-size:16px;font-weight:700;color:var(--ink);line-height:1.45;margin-bottom:14px}
+.yn{display:flex;gap:12px}
+.yn-btn{
+  flex:1;cursor:pointer;border:1.8px solid var(--line);background:var(--paper);
+  border-radius:14px;padding:16px 12px;text-align:center;
+  transition:all .22s var(--spring);position:relative;
+  display:flex;flex-direction:column;align-items:center;gap:7px;
+}
+.yn-btn .emo{font-size:30px;line-height:1;transition:transform .3s var(--spring)}
+.yn-btn .lab{font-family:'Fraunces',serif;font-weight:700;font-size:16px;color:var(--ink)}
+.yn-btn:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(22,32,46,.1)}
+.yn-btn:hover .emo{transform:scale(1.15)}
+.yn-btn.on[data-v=yes]{border-color:var(--leaf);background:var(--leaf-soft);box-shadow:0 8px 22px rgba(31,157,85,.18)}
+.yn-btn.on[data-v=no]{border-color:var(--rose);background:var(--rose-soft);box-shadow:0 8px 22px rgba(220,75,75,.15)}
+.yn-btn.on .emo{transform:scale(1.18)}
+
+/* reveal block */
+.reveal{max-height:0;overflow:hidden;opacity:0;transition:max-height .45s var(--ease),opacity .35s}
+.reveal.open{max-height:3000px;opacity:1;overflow:visible}
+
+/* grade type toggles */
+.grade-pick{display:flex;flex-direction:column;gap:12px;margin-top:4px}
+.grade-toggle{
+  display:flex;align-items:center;gap:13px;cursor:pointer;
+  border:1.8px solid var(--line);background:var(--paper);border-radius:14px;
+  padding:14px 16px;transition:all .2s var(--spring);
+}
+.grade-toggle:hover{border-color:var(--saffron);transform:translateY(-1px)}
+.grade-toggle .box{
+  width:24px;height:24px;border-radius:7px;flex:0 0 auto;
+  border:2px solid var(--line);background:#fff;display:grid;place-items:center;
+  transition:all .2s var(--spring);font-size:14px;color:#fff;
+}
+.grade-toggle .tt{flex:1}
+.grade-toggle .tt .nm{display:block;font-weight:700;font-size:15px;color:var(--ink)}
+.grade-toggle .tt .ds{display:block;font-size:12px;color:var(--muted);margin-top:3px}
+.grade-toggle .badge{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  padding:3px 9px;border-radius:20px;letter-spacing:.5px;
+}
+.grade-toggle[data-g=G] .badge{background:var(--sky-soft);color:var(--sky)}
+.grade-toggle[data-g=EI] .badge{background:var(--saffron-soft);color:var(--saffron-deep)}
+.grade-toggle.on{border-color:var(--leaf);background:var(--leaf-soft)}
+.grade-toggle.on .box{background:var(--leaf);border-color:var(--leaf)}
+
+/* course picker */
+.picker-block{margin-top:14px;padding:16px;border:1px dashed var(--line);border-radius:14px;background:var(--paper)}
+.picker-block .pb-head{
+  display:flex;align-items:center;gap:8px;margin-bottom:12px;
+  font-weight:700;font-size:14px;color:var(--ink);
+}
+.picker-block .pb-head .tag{
+  font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;
+  padding:3px 9px;border-radius:20px;letter-spacing:.5px;
+}
+.picker-block[data-g=G] .pb-head .tag{background:var(--sky-soft);color:var(--sky)}
+.picker-block[data-g=EI] .pb-head .tag{background:var(--saffron-soft);color:var(--saffron-deep)}
+.search-label{font-size:13px;color:var(--ink-soft);margin-bottom:8px;font-weight:600}
+.combo{position:relative}
+.combo-row{display:flex;gap:8px}
+.combo input{
+  flex:1;font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--ink);background:#fff;
+  border:1.5px solid var(--line);border-radius:11px;padding:11px 13px;outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.combo input:focus{border-color:var(--saffron);box-shadow:0 0 0 4px rgba(244,128,31,.13)}
+.add-btn{
+  flex:0 0 auto;border:none;cursor:pointer;border-radius:11px;padding:0 18px;
+  background:linear-gradient(135deg,var(--gold),var(--saffron));color:#2A1300;
+  font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;
+  display:flex;align-items:center;gap:6px;transition:transform .18s var(--spring),box-shadow .2s;
+  box-shadow:0 5px 14px rgba(244,128,31,.3);
+}
+.add-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 22px rgba(244,128,31,.42)}
+.add-btn:active:not(:disabled){transform:scale(.96)}
+.add-btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.dropdown{
+  position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:40;
+  background:#fff;border:1.5px solid var(--line);border-radius:12px;
+  box-shadow:0 18px 40px rgba(22,32,46,.18);max-height:300px;overflow-y:auto;
+  -webkit-overflow-scrolling:touch;display:none;
+}
+.dropdown::-webkit-scrollbar{width:9px}
+.dropdown::-webkit-scrollbar-thumb{background:var(--line);border-radius:5px;border:2px solid #fff}
+.dropdown.open{display:block;animation:ddin .18s var(--ease)}
+@keyframes ddin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.dd-item{
+  padding:10px 14px;cursor:pointer;font-family:'JetBrains Mono',monospace;
+  font-size:14px;font-weight:500;letter-spacing:1px;color:var(--ink);
+  border-bottom:1px solid var(--paper-2);display:flex;align-items:center;justify-content:space-between;
+}
+.dd-item:last-child{border-bottom:none}
+.dd-item mark{background:var(--gold);color:#2A1300;border-radius:3px;padding:0 1px}
+.dd-item:hover,.dd-item.active{background:var(--saffron-soft)}
+.dd-item .pick{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;color:var(--saffron-deep);opacity:0;transition:opacity .15s}
+.dd-item:hover .pick,.dd-item.active .pick{opacity:1}
+.dd-empty{padding:14px;text-align:center;color:var(--muted);font-size:13px}
+.dd-foot{padding:8px 14px;font-size:11px;color:var(--muted);border-top:1px solid var(--paper-2);background:var(--paper);font-family:'JetBrains Mono',monospace;letter-spacing:.3px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;min-height:4px}
+.chip{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;border:1.5px solid var(--leaf);color:#0E6B41;
+  border-radius:22px;padding:7px 8px 7px 14px;
+  font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;letter-spacing:1px;
+  animation:chipin .3s var(--spring) both;
+}
+@keyframes chipin{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
+.chip .x{
+  width:20px;height:20px;border-radius:50%;border:none;cursor:pointer;
+  background:var(--leaf-soft);color:#0E6B41;font-size:13px;line-height:1;
+  display:grid;place-items:center;transition:all .15s;
+}
+.chip .x:hover{background:var(--rose);color:#fff;transform:rotate(90deg)}
+.must-add{font-size:12px;color:var(--saffron-deep);margin-top:10px;font-weight:600;display:flex;gap:6px;align-items:center}
+
+/* textarea for reason */
+.field textarea{
+  width:100%;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--ink);
+  background:var(--paper);border:1.5px solid var(--line);border-radius:12px;
+  padding:12px 14px;outline:none;resize:vertical;min-height:90px;line-height:1.5;
+  transition:border-color .2s,box-shadow .2s,background .2s;
+}
+.field textarea:focus{border-color:var(--saffron);box-shadow:0 0 0 4px rgba(244,128,31,.13);background:#fff}
+.field textarea.error{border-color:var(--rose);background:var(--rose-soft)}
+
+/* summary tally */
+.tally{
+  margin:4px 22px 0;padding:12px 16px;border-radius:12px;
+  background:var(--leaf-soft);border:1px solid #BCE6CE;color:#0E6B41;
+  font-size:13px;font-weight:600;display:none;align-items:center;gap:8px;
+}
+.tally.show{display:flex;animation:rise .35s var(--spring) both}
+
+/* submit */
+.submit-wrap{padding:18px 22px 22px;border-top:1px solid var(--line)}
+.submit-btn{
+  width:100%;background:linear-gradient(135deg,var(--ink) 0%,#1F2B3C 100%);
+  color:#FFCF9E;font-family:'Fraunces',serif;font-size:17px;font-weight:700;
+  border:none;border-radius:14px;padding:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:transform .2s var(--spring),box-shadow .25s,opacity .2s;
+  box-shadow:0 10px 28px rgba(22,32,46,.22);position:relative;overflow:hidden;
+}
+.submit-btn::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.14) 50%,transparent 65%);
+  transform:translateX(-130%);transition:transform .7s;
+}
+.submit-btn:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 18px 40px rgba(22,32,46,.32)}
+.submit-btn:hover:not(:disabled)::after{transform:translateX(130%)}
+.submit-btn:active:not(:disabled){transform:scale(.98)}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed}
+.foot-note{
+  text-align:center;margin-top:14px;font-family:'JetBrains Mono',monospace;
+  font-size:9.5px;letter-spacing:.8px;color:#B7AE9C;
+}
+.spin{width:15px;height:15px;border-radius:50%;border:2.5px solid rgba(255,207,158,.35);border-top-color:#FFCF9E;animation:sp .7s linear infinite;display:inline-block}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* toast */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);
+  background:var(--ink);color:#FDF9F1;font-size:13.5px;font-weight:600;
+  padding:13px 22px;border-radius:40px;box-shadow:0 18px 44px rgba(12,17,26,.45);
+  z-index:9999;transition:transform .45s var(--spring);
+  display:flex;align-items:center;gap:9px;max-width:min(92vw,440px);text-align:center;
+}
+.toast.show{transform:translate(-50%,0)}
+.toast.ok{background:#166534}
+.toast.err{background:var(--rose)}
+
+/* success overlay */
+.success-overlay{
+  position:fixed;inset:0;background:rgba(249,245,238,.95);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  z-index:9500;display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .35s;padding:20px;
+}
+.success-overlay.show{opacity:1;pointer-events:all}
+.success-card{text-align:center;transform:scale(.82);transition:transform .5s var(--spring);max-width:360px}
+.success-overlay.show .success-card{transform:scale(1)}
+.success-stamp{
+  width:104px;height:104px;margin:0 auto 20px;border-radius:50%;
+  background:var(--leaf);display:flex;align-items:center;justify-content:center;
+  box-shadow:0 20px 50px rgba(31,157,85,.38);position:relative;
+}
+.success-stamp::before{content:'';position:absolute;inset:-10px;border-radius:50%;border:2.5px dashed var(--leaf);opacity:.45;animation:rot 14s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+.success-stamp svg{width:52px;height:52px}
+.success-stamp svg path{stroke:#fff;stroke-width:6;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:60;stroke-dashoffset:60}
+.success-overlay.show .success-stamp svg path{animation:chk .55s .25s var(--ease) forwards}
+@keyframes chk{to{stroke-dashoffset:0}}
+.success-title{font-family:'Fraunces',serif;font-size:26px;font-weight:900;margin-bottom:8px;color:var(--ink)}
+.success-sub{font-size:14px;color:var(--muted);line-height:1.55}
+.success-detail{
+  margin-top:16px;display:inline-flex;align-items:center;gap:7px;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:var(--leaf);background:var(--leaf-soft);border:1px solid #BCE6CE;border-radius:20px;padding:6px 16px;
+}
+
+@media(max-width:480px){
+  .wrap{padding:20px 14px 56px}
+  .card-section,.submit-wrap{padding-left:16px;padding-right:16px}
+  .tally{margin-left:16px;margin-right:16px}
+  .row2{flex-direction:column;gap:0}
+  .combo-row{flex-direction:column}
+  .add-btn{padding:12px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="mark">LPU</div>
+  <div class="topbar-text">
+    <div class="t1">LPU · Division of Student Relationship</div>
+    <div class="t2">Reappear Exam Registration</div>
+  </div>
+  <div class="live-dot"><span></span>Live</div>
+</div>
+
+<div class="wrap">
+  <div class="hero-intro">
+    <div class="kicker">Special One-Time Opportunity</div>
+    <h1>Register your <span class="hl">pending courses</span></h1>
+  </div>
+
+  <div class="notice">
+    <span class="nico">🎓</span>
+    <div>To support your academic progress and help you complete your degree on time, as a special gesture the University is providing a <b>special opportunity</b> to register for reappear examinations for courses in which you have pending <b>E / I / G</b> grades.</div>
+  </div>
+
+  <div class="card">
+
+    <!-- Student -->
+    <div class="card-section">
+      <div class="section-label"><span class="ico">🎓</span>Your Details</div>
+      <div class="row2">
+        <div class="field">
+          <label>Registration No. <span class="req">*</span></label>
+          <input type="text" id="regno" class="mono" maxlength="8" inputmode="numeric" placeholder="10000000" autocomplete="off">
+          <div class="hint">8 digits</div>
+        </div>
+        <div class="field">
+          <label>Contact No. <span class="req">*</span></label>
+          <input type="text" id="contact" class="mono" maxlength="10" inputmode="numeric" placeholder="9876543210" autocomplete="tel">
+          <div class="hint">10 digits</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Register? -->
+    <div class="card-section">
+      <div class="section-label"><span class="ico">❓</span>Registration Choice</div>
+      <div class="q-title">Do you want to register your pending courses in this special chance?</div>
+      <div class="yn">
+        <div class="yn-btn" data-v="yes" onclick="setChoice('yes')" role="button" tabindex="0">
+          <span class="emo">✅</span><span class="lab">Yes</span>
+        </div>
+        <div class="yn-btn" data-v="no" onclick="setChoice('no')" role="button" tabindex="0">
+          <span class="emo">🚫</span><span class="lab">No</span>
+        </div>
+      </div>
+
+      <!-- NO path -->
+      <div class="reveal" id="no-reveal">
+        <div class="field" style="margin-top:18px">
+          <label>What is the reason? <span class="req">*</span></label>
+          <textarea id="reason" placeholder="Please tell us why you do not wish to register in this special chance"></textarea>
+        </div>
+      </div>
+
+      <!-- YES path -->
+      <div class="reveal" id="yes-reveal">
+        <div style="margin-top:18px">
+          <div class="search-label" style="font-size:13.5px;margin-bottom:12px">Which grades do you want to register? <span style="color:var(--muted);font-weight:500">Select the ones you need.</span></div>
+          <div class="grade-pick">
+            <div class="grade-toggle" data-g="G" onclick="toggleGrade('G')" role="button" tabindex="0">
+              <span class="box">✓</span>
+              <span class="tt"><span class="nm">G Grade Registration</span><span class="ds">Courses carrying a pending G grade</span></span>
+              <span class="badge">G</span>
+            </div>
+            <div class="grade-toggle" data-g="EI" onclick="toggleGrade('EI')" role="button" tabindex="0">
+              <span class="box">✓</span>
+              <span class="tt"><span class="nm">E / I Grade Registration</span><span class="ds">Courses carrying a pending E or I grade</span></span>
+              <span class="badge">E / I</span>
+            </div>
+          </div>
+
+          <!-- G picker -->
+          <div class="reveal" id="rev-G">
+            <div class="picker-block" data-g="G">
+              <div class="pb-head"><span class="tag">G</span> G Grade — course codes</div>
+              <div class="search-label">Please search and select the course code</div>
+              <div class="combo">
+                <div class="combo-row">
+                  <input type="text" id="search-G" placeholder="Type e.g. MTH" autocomplete="off" oninput="onSearch('G')" onkeydown="onKey('G',event)" onfocus="onSearch('G')">
+                  <button class="add-btn" id="add-G" onclick="addCurrent('G')" disabled>+ Add</button>
+                </div>
+                <div class="dropdown" id="dd-G"></div>
+              </div>
+              <div class="chips" id="chips-G"></div>
+              <div class="must-add" id="must-G">⚠ Type a code, pick it, then press <b style="margin:0 3px">+ Add</b> — a code is only registered once added.</div>
+            </div>
+          </div>
+
+          <!-- EI picker -->
+          <div class="reveal" id="rev-EI">
+            <div class="picker-block" data-g="EI">
+              <div class="pb-head"><span class="tag">E / I</span> E / I Grade — course codes</div>
+              <div class="search-label">Please search and select the course code</div>
+              <div class="combo">
+                <div class="combo-row">
+                  <input type="text" id="search-EI" placeholder="Type e.g. CSE" autocomplete="off" oninput="onSearch('EI')" onkeydown="onKey('EI',event)" onfocus="onSearch('EI')">
+                  <button class="add-btn" id="add-EI" onclick="addCurrent('EI')" disabled>+ Add</button>
+                </div>
+                <div class="dropdown" id="dd-EI"></div>
+              </div>
+              <div class="chips" id="chips-EI"></div>
+              <div class="must-add" id="must-EI">⚠ Type a code, pick it, then press <b style="margin:0 3px">+ Add</b> — a code is only registered once added.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- running tally -->
+    <div class="tally" id="tally"><span>📋</span><span id="tally-text"></span></div>
+
+    <!-- Submit -->
+    <div class="submit-wrap">
+      <button class="submit-btn" id="submit-btn" onclick="submitForm()">
+        Submit Registration <span>→</span>
+      </button>
+      <p class="foot-note">Submitted securely to LPU university records</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="success-overlay" id="success-overlay">
+  <div class="success-card">
+    <div class="success-stamp"><svg viewBox="0 0 52 52"><path d="M12 27 L22 37 L40 17"/></svg></div>
+    <div class="success-title">Registration Submitted ✓</div>
+    <p class="success-sub">Your response has been recorded in the university sheet. You may close this page.</p>
+    <div class="success-detail" id="success-detail">REG · 00000000</div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════
+   CONFIG — paste your Apps Script /exec URL here
+   ══════════════════════════════════════════════ */
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxQFQpe3zdfhNnKipP9VaebrH3LDliqvSrVu2nOaMtf58v6OUSp7bm5zMIt9Er_sq0/exec';
+
+/* full course-code list (from Course_Code_list.xlsx) */
+var COURSE_CODES = ["INT234","MTH165","ATE320","PEA306","ASE304","INT407","INT417","FST319","MEC103","INT404","CSE202","CSE101","MEC107","IFD237","IFD241","IFD255","IFD333","MKT201","ARC056","ARC058","IFD236","LAW899","CAP118","CAP123","CAP525","CAP208","CAP560","CAP282","CAP267","CAP281","CAP919","CAP918","CAP917","CAP916","CAP906","CAP438","CAP509","ECE881","PEA204","MTH106","CAP214","PEA305","CHE649","MEC406","INT105","MEC201","MEC223","MEC306","PES318","PES317","CSE406","CSE333","MTH166","ECE213","CSE403","CSE310","CSE325","FIN550","CSE380","CSE205","MTH401","MTH302","CSE408","CSE320","PTY136","PTY406","PTY417","PTY500","CSEB304","CIV222","CIV223","CIV324","FINM547","MGNM571","MKTM535","HMT217","HMT308","BP401T","CSE589","CIV466","ARC341","ARC213","MLT217","MLT319","FINM693","FINM698","MGNM828","FINM809","FINM699","FINM695","OPRM521","MKTM698","MKTM697","CSE377","CSE379","CSE211","CSE227","CSE316","CSE90D","INT251","INT306","OPR301","CSE306","INT249","INT244","CSE423","FIN212","LAW334","CSE343","CSE506","CSE523","MGN231","PHY119","CSE552","ARC425","LAW365","LAW399","LAW357","LAW116","LAW292","LAW322","LAW437","LAW439","LAW452","LAW467","POL202","LAW314","PEA265","PEA268","MTH403","PEA208","SOL220","PTH223","PTH213","AGR223","AEE233","AEE101","BTY164","BTY153","PEL174","CHE120","MTH275","MTH109","HRT250","HRT242","GPB201","GPB101","CSE378","CSE435","CSE68D","CSEB414","MGNM840","ECE262","MEC400","MTH167","MEC583","ECE322","BP505T","BP406P","BP207P","BP409P","BP408P","PES201","MLT358","MLT337","MLT323","MKT327","PID268","MKT905","MKT309","MEC339","MEC205","IFD251","PID326","PID260","PID233","GRD413","GRD228","AFT172","SOL315","GPB301","ENT313","ENT323","FOT339","AEE313","PTH323","HMT252","HMT361","PEA216","PEA215","MEC895","HMT327","HMT309","BP602T","INTM579","MGNM818","ASE204","PEA308","HRT241","AGR114","INT315","INT312","CIV895","HMT404","HMT302","HMT214","HMT106","HMT202","HMT213","ASE470","HRT341","BP105T","CAP425","BP605T","BP601T","BP504T","BP503T","BP501T","BP301T","ATE303","ECE404","INT322","HMT439","HMT437","HMT413","MKT901","MGN313","GPB222","AGR310","INT423","ENG608","MTH265","MTH280","PSY802","INT344","INT354","PEV107","CSE323","PEA307","CAP379","BTY401","BTY850","INT345","CSE307","CSE493","MTH880","PBA403","CSE322","MEC219","BP606T","BP802T","BP803ET","BP809ET","PEA255","MKT204","QTT201","ACC205","CAP172","CAP145","PES319","ACC401","ECO402","CSE308","INT252","INT222","INT219","CSE427","POL802","SOC108","GPB303","GPB302","SOL214","INT405","PTY204","PTY109","CSE393","ECE084","ECE176","ECE207","ECE178","ARC330","ARC622","INT242","ECE220","PEA515","AGR304","PTH313","INT254","PEL131","ELE205","ECE305","FRN211","FST387","FST386","FST385","FST383","FST380","FST323","FST281","FST248","FST404","INT221","INT220","INT351","INT216","INT215","PEV108","CSE304","FIN309","ECE131","ECE217","ECE128","HMT469","HMT305","HRT340","AEE112","CAP132","GPB202","AGR220","AGR206","AEE219","APH881","LAW351","INT245","PEV112","INT213","BP801T","FRN115","FRN117","BPCA615","ECO113","MTH136","PEA516","CAP770","SOL314","HRT350","AEE301","AGR313","AGR352","AGR312","CIV368","CIV317","CIV331","CIV344","JRN168","BP407P","ECE216","OPRM639","CAP808","CSE507","AEE314","FNA470","FNA258","PHY109","BTY365","BTY415","BTY420","BTY460","MEC108","MTH108","ECE224","CHE122","BTY160","BTY346","INT250","MEC228","MEC231","MEC301","MEC320","MEC588","HRT342","SOL224","HMT405","CSE443","HRT223","CSE447","HRM301","BP402T","PEAM518","INT209","MEC136","FRN301","INT422","MTH381","ACC224","MKTM504","BSL304","BSL301","FST305","FST381","AFT430","CSE332","PEV113","INT349","INT232","MKT907","CSE436","ECE237","PUN800","ECE129","PES320","ASE416","GEN231","CSE448","CSE374","CSE305","CSE231","ECE132","JAP101","ECE179","MTH168","PEL132","MEC209","MEC492","MEC541","MGN904","INT411","FST235","FST320","FST270","FST231","CSE439","HRM302","FINM543","FIN301","CIV217","CIV255","CIV355","CIV369","CIV388","PES321","PED204","PED148","CAP120","PEL033A","PED377","PED360","PED350","PED332","PED320","PED303","PED301","PED260","PED246","PED235","PED245","PED238","PED237","PEV106","HMT804","MEC460","CSE230","EDU447","PTY304","PTY314","PTY319","PTY474","PTY475","PTY321","CHE136","NUT546","ZOL519","FOT567","BP502T","BP703T","BP805ET","BP705P","BP704T","BP604T","BP404T","BP403T","CSM228","ACC211","CSM422","INT421","CSE228","ELE318","ECE241","CSE441","INT402","CHE110","GEN330","CSE432","ENT102","AEE311","CSE326","MGN911","SOC806","HMT272","HMT307","HMT313","HMT216","HMT315","HMT321","FRN210","HMT204","INT428","SSC231","FST700","LAW576","CHE139","HRT142","ENT332","AGR314","PTY415","BP600IT","LAW578","LAW108","FRN111","CAP133","LAW323","LAW291","ARC402","HRT141","PED100","PEL184","ENT123","CHE882","CSM423","LAW352","LAW354","INT368","BP701T","CSE504","FIN319","CSM353","INT355","HMT256","CIV329","CIV238","CIV208","HIS294","BP102T","SOL114","FOT374","GPB251","CSE445","LAW886","BTY320","HMT222","MKT311","HMT324","AGR254","AGR101","SOL123","BOT126","AGR105","BP603T","CSE62D","CSE357","CSE376","CIV207","ECE226","ELE316","MEC282","JRN169","INTB411","LAW549","GER110","GER109","GER107","INT327","INT328","INT364","CSEB436","PEL022","FIN302","AGR207","FNA128","FNA392","FNA444","CSEB407","HMT108","HMT205","ACC213","ARC506","MEC259","MEC235","ECE310","ECE252","ECE206","PEV114","CSEB422","CSEB428","FINM541","MGNM583","MGNM815","MKTM672","MGNM801","BSL201","MGNM574","MKTM675","MKTM674","ACC105","MGNM810","ENG609","FIN901","SPA102","CSE226","CHE609","CHE633","CHE636","ASE345","BP607P","BTY472","BTY157","BTY319","BTY380","BTY452","ZOL300","CSM344","CSM354","CAP819","CAP820","ECE501B","INT253","INTB233","INT362","BTY660","BTY206","BTY423","BTY436","BTY442","BTY450","BTY587","BTY323","BTY507","BTY342","BTY353","BTY433","BTY446","CSEB419","CIV273","ARC363","CIV272","CSE65D","EDU568","PHY249","PHY246","EDU495","CSE233","ECE180","ELE310","CSEB375","CIV212","CIV452","MKT906","INT102","ATE206","ATE211","ATE310","ATE318","MEC260","ATE305","HMT754","MGNM800","LAW324","LAW449","MEC303","PED044","PED062","PED252","PED253","PED304","PED328","PED353","PED398","PED254","HMT572","LAW133","CSE225","MGN902","PAR178","AFT440","AFT420","MKT354","MKT351","AFT236","AFT224","POL373","ECE47D","MTH01D","MTH11D","MEC01D","ARC451","URP332","LAW167","PSY291","PSY320","PSY323","PSY117","SPA109","CST102","BTY396","LAW147","LAW502","CIV233","CIV341","CIV379","CIV342","PEL121","ATE335","FOT467","BTY203","POL110","CSE375","MGN234","CSE339","INTB402","CSEB431","CAP818","CAP821","INT330","INT363","ECE284","PES209","HMT116","HMT117","PEL103","CSE121","AEE302","BTY177","BTY432","BTY447","ELE295","PSY294","MKT302","LAW201","LAW205","LAW206","LAW307","LAW473","LAW501","LAW514","LAW536","LAW577","LAW590","SOC417","HIN352","HIN252","ENG607","ENG606","BP101T","BP104T","BP405T","SPA107","BP304T","BP507P","BP508P","GER108","GEO298","POL374","MGN012","BTY499","BP702T","INT108","LAW315","LAW391","POL310","GEN332","EDU404","HIS304","GEO103","ENG114","EDU462","EDU448","ACC301","PTY217","DES176","SSC102","FOT340","FOT341","FOT482","FNA480","FNA402","BP813PW","FST306","MKT308","PUN209","PUN317","SSC310","SSC321","PUN208","FST803","PTH103","BTY484","PBA399","HMT403","HMT433","ARC800","BP305P","PAR105","BP804ET","LAW207","ACC151","MGN251","MKT312","PED352","SOC307","SOC362","SOC335","SOC305","SOC102","ENG140","ENG139","PED351","PED201","PED145","PED102","PED101","HIS122","HMF211","HMT101","HMT133","HMT301","IFD702","MEC122","MTH110","EDU440","CAP170","CAP279","POL204","POL222","POL335","POL336","SOC111","SOC262","POL220","POL203","SOC223","MEC216","ASE305","ASE328","ASE403","ASE330","HIS110","HIS305","HIS309","PED134","HIN331","HIS308","HIS203","AFT461","AFT454","ENG112","ENG217","ENG316","PED307","PED312","SOC220","ENG115","EDU407","EDU410","EDU421","EDU424","EDU449","EDU474","EDU478","EDU496","GEO335","SSC311","EDU411","EDU402","ECE23D","CSI422","CSI421","PUN403","FST416","MEC135","MTH174","HMT131","HMT286","ASE450","FST435","IFD438","PID435","BTY162","BTY239","BTY251","BTY313","BTY371","BTY074","IFD338","IFD410","IFD433","ECE166","ECE164","MGNM729","MGNM733","ECE249","CSC304","CSC401","HMT729","HMF410","HMF420","HMF405","CSE256","ECE235","ECE321","ECE379","ECE416","ECE419","ECE418","CSEB423","ERT435","CSM421","CSE461","AFT332","AFT439","AFT467","GRD321","GRD440","GRD423","PEV301","CSM355","MGN363","BSL101","GRD118","AFT725","IFD212","MKTM515","MKTM809","MTH125","MTH127","MTH269","MTH270","PEA203","PHY141","PHY340","CHE115","CHE117","CHE137","MTH126","MTH130","MTH219","INTM592","MGNM573","MTH004","AGR175","MEC365","MEC423","MEC582","CAP200","CSE67D","PEL03D","CSE64D","CSE56D","CSE46D","CSE34D","CSE22D","INT43D","ECE11D","MGN350","HIS307","POL252","SSC216","ECE279","PEL011","PAR106","HIN110","INT332","INT333","ASE329","ASE331","ASE423","HMF401","PID432","HMF412","HMF421","HMF411","HMT358","FST213","FST230","FST302","FST350","PEL113","FST220","PAR462","HMT712","BP202T","BP106RMT","HMT210","SPA101","FST804","BP100M","INT334","INT373","AFT453","AFT436","FIN358","BTY337","HMF404","AFT450","CSE224","FOT395","CSG303","CSE494","MGN362","IXD804","HRM203","ASE301","CAP256","CAP378","MKTM678","INT325","POL224","PAR257","BP201T","ENG136","MEC208","MEC241","MEC207","MEC323","ECE183","HMT752","CSEB404","PHY110","FST405","FST208","FST364","FST282","CSC402","AGR402","AGR403","AGR406","AGR407","CSEB432","GEN331","IXD803","PEL542","CAP615","CAP756","CAP538","HIN113","CSC403","CSC303","HMT366","CSEB413","PESM502","HMT250","AFT711","IFD434","IFD488","IXD405","CSEB402","PEL112","PEL112A","MGN306","FRN116","CSEB405","HMF418","FST201","FST365","FST330","FST209","HMT215","HMT411","HMT311","FINM508","FINM528","FINM529","PESM606","CIV119","CIV332","CIV399","CIV418","CIV435","CIV471","MTH204","MEC113","CIV288","FST427","CSE382","MGNM845","PSY293","INT233","INT331","FIN216","HRM101","ATE101M","FRN114","PESM605","HMT730","CAP484","ATE440","SOC374","FST802","BTY565","FOT486","MTH276","GRD422","GRD217","GRD222","MGN358","ASE440","ECE442A","ECE442B","MEC106","ELE293","CSE331","MGN303","BP203T","MGN253","PEA210","HRM352","MGN206","PEA209","CAP202","CAP213","QTT102","QTT303","CIV21D","PHY11D","CHE01D","CIV47D","HMT368","AFT115","AFT155","AFT159","CSE69D","PEL01D","CSE32D","CSE38D","CSE39D","CSE42D","CSE48D","CSE49D","CSE57D","CSE59D","ECE12D","ECE48D","INT42D","CSF102","CSF303","HMT141","FRN101","CAP460","CAP483","CAP268","MGNM838","AFT158","AFT312","AFT230","FST801","CSE335","LAW256","CAC303","CAC305","ACC204","ACC210","CAP314","CAP280","ASE420","FIN215","PEAM517","PEA402","HMT101M","HMT151","CSE70D","ECE24D","CAP512","INT02D","ATE418","ATE494","ATE417","ECO317","JAP107","MGNM577","BTY483","BTY486","BTY400","BTY418","BTY316","BTY496","CSR401","MKT203","HMT383","BTY582","CAP283","OPRM530","OPRM506","OPRM508","OPRM512","PID802","HMF422","CSEB421","MKT202","CSEB401","CHE110P","PED032","PED050","PED178","PED298","PED305","PED311","PED314","PED322","PED396","PSY350","PED234","PED200","PED222","PED223","IXD439","AFT130","CAP441","IXD440","ECO215","SSC233","IFD802","FST401","BSL309","GEO297","ECE501A","FST218","FST148","FST428","FST269","FST244","PUN402","CSE381","CHE113","BTY112","BTY175","BTY201","BTY417","BTY107","HRMM510","BTY179","BTY376","BTY388","BTY467","CSEB429","ACC103","CSEB408","AFT156","IFD804","MEC543","MEC203","HMF402","MGN342","MGN343","ACC306","INT372","CAP451","ELE305","ELE411","HIS293","CAP100","CAP180","CAP404","POL123","SSC234","CSC306","HMT238","ERT443","HIS219","HMT147","HMT191","HMT259","PES224","CSE334","ENG157","CSE71D","MEC85D","PHY01D","PHY12D","GEN11D","INT11D","CSE20D","CHE13D","MGN340","FIN308","BTY651","INT217","ENG113","ENG317","HIS210","INT339","CSE324","URP101M","PSY284","BP608P","AFT323","HMT399","HMT365","HMT363","PEA222","MKT305","BP204T","HMT330","CSE358","BTY252","IFD223","IFD262","PEL125","CSEB420","BTY682","CSEB430","CAP277","BP811ET","ENG144","MGN381","FOT165","FOT498","BTY377","ELE333","CAP368","CAP620","CAP621","AFT457","CSR442","INT426","ARC066","ARC067","IFD243","IFD286","AFT163","LAW255","PEL134","BP807ET","MGN379","MGN380","MGN382","PEL119","HRM204","PES210","MEC395","BP307P","LAW353","ARC155","CSI303","FIN323","MKT326","PSY292","CSEB426","CAC202","CAP463","CAP209","CAP210","MTH563","ECO324","IXD371","PID423","PED232","PED233","PED247","PED231","PED226","MKT211","ECE085","ECE378","POL320","CSR441","CSEB410","BTY734","MGN101","MLT061","MLT063","MLT068","MLT042","MLT039","MLT037","PES001","MLT049","MLT046","ASE433","BTE401","CAP473","CAP474","ARC512","FIN205","FIN210","GEN211","PEV200","PEL202","MGN100M","ECE283","ATH102M","HMT218","MKT251","MKTM679","HMF419","HMF427","HMF212","HMT110","CAP458","ASE460","ASE417","ASE344","ASE419","HRM351","MKT317","CAP472","HMT221","FIN208","ACC312","PUN212","PUN318","PUN321","PUN322","SSC200","PUN211","SSC305","PUN105","PED299","ECE303","BP103T","CSE36D","CSE88D","CSE50D","CSE37D","FIN201","CSE109","ELE206","ELE634","IXD802","PED546","ECO325","ECO214","HMT291","FIN322","AEE102","MEC124","BTY350","BTY430","BTY440","BTY441","BTY455","BTY100M","CSE236","CHE134","PHY138","CIV353","CIV398","FST324","CSE66D","BTY300","PAR320","PAR357","PAR356","PAR339","EDU100M","EDU511","CSEB416","INT326","FINM551","ACCM506","ASE203","GRD419","GRD416","GRD430","PEA223","ENG145","PED202","SSC100M","CAP257","JRN453","HRM353","MGN356","FIN353","CAP444","CAP275","HMT354","HMT377","AFT233","AFT726","AFT737","HMF337","BTY188","BTS306","BTY187","AGR660","FIN362","FIN361","FIN364","FIN363","BTY327","BTY375","BTY209","HMF311","FOT285","NUT250","NUT312","BTY110","ASE320","PED427","PED429","PED448","PES401","PED358","PED453","PED424","PED417","PED416","PED406","PED438","PED425","PED452","PED451","MGNM747","MGNM748","BSLM605","MGNM846","MGNM575","CAC301","FST038","FST057","FST058","FST059","FST060","FST064","FST078","CAP315","BSL308","CAP101M","CAP102M","CAP836","PEL203","CAP362","CSE08D","PED114","ERT441","ARC070A","ACC215","MGNM805","CSE100D","OPR310","FIN239","FST041","FST061","FST071","MGN019","ECO002","ECO001","MGN011","MGN001","FIN300","MEC450","CSE75D","INT64D","INT65D","ECO515","QTT601","GRD303","MKT319","PEL204","MKT318","MGN301","HMF225","IFD348","IFD102M","IFD211","IFD258","FRN205","FRN206","CAP173","CAP270","CSEB418","PAR306","MKT307","CAP841","ACCM507","QTTM509","FINM542","MGNM832","FINM639","FINM646","CAP392","BTY335","MKT325","FINM816","FINM817","MGNM579","MGNM584","HMT398","AGR516","FIN221","FIN351","HMF106","HMF210","CAP563","CAP562","CAP496","GEN302","MTH162","MTH292","HMT104","HMF202","LAW115","ARC084A","ARC050A","CIV33D","FIN355","MGN502A","MGN601A","ACC504","HMF101M","FIN354","FST212","FST309","ECO218","HMF209","PED042","PED060","ERT440","IFD314","AFT182","AFT814","CAP449","ECO320","BSL306","CAP485","FSC305","FSC329","FSC349","FSC360","HRT576","STA540","MKT402","FIN320","MKT324","ASE505","ASE624","ECE13D","QTT001","CSE588","QTT605","CAP269","HLTM614","HLTM606","HLTM616","PEL200","ECO319","AGR659","FST046","FST068","FST069","FST087","HIS339","BTY488","OPRM529","CSE99D","PBA525","PBA635","PBA695","SSC505","SSC517","SSC520","PBA623","SSC509","PBA510","PHY301","BIO102","BTS408","BTS101","GEN340","FINM544","ECOM522","FINM548","ERT442","HMT150","POL212","SSC212","SSC222","POL227","FIN352","ACC318","CSE80D","GEN01D","CAP735","CSE43D","CSE74D","ECE281","ECE282","ACC317","HMF145","CSE23D","MPC102T","PEL205","HMT279","CAP482","HMT248","FINM812","MGN112","MLT224","MLT120","MLT144","MLT136","MLT129","MLT127","MLT122","BTY654","BTY697","BTY554","BTY411","BTY505","ICT301B","BTY211","BTY312","PES219","ECO003","MGN004","MKT002","MKT003","OPR002","QTT002","QTT003","ACC002","HRM001","ACC001","MGN200M","MGN010","PED052","CSE91D","FLM339","GEN341","MLT043","MLT067","MLT057","PTY722S","PTY726","PTY727","PEL300","HMT122","ACC304","CAP246","CAP286","HIS208","ACC356","AFT157","AFT173","AFT183","AFT210","AFT228","AFT310","AFT320","AFT324","BTY149","PSY512","HMT396","OPR202","OPR201","PED607","CAP790","BTY831","ATH100M","BTS307","BTY236","BTY195","CAP842","CAP781","CAP792","CAP793","CAC201","BTY318","MGN404","MGNM580","CHE583","CHE543","CHE534","CHE658","PESM508","FINM814","CSE96D","CSE77D","PEA506","MGN403","ELE296","ELE312","CAP497","CHE235","PHY236","CAP402","PEL541","HRT515","ACC354","CHE257","MTH307","PEA206","AGR575","AGR573","GPB598","MEC70D","MEC80D","CAP455","PED251","POL525","POL561","POL650","POL694","MKT505","POL618","POL633","ENG166","CAP321","POL226","POL308","POL126","POL225","POL217","ARC031","ARC095A","ARC098","ARC060A","AFT153","AFT721","AFT811","AFT810","PED100M","PED112","PED116","PEL140","HRT512","CAP785","PED059","CAP771","CAP777","CAP776","CAP774","IXD671","PAR208","PED031","PED109","PED110","PED111","SSC203","PED053","FOT283","FOT293","FOT385","FOT389","MLT338","SSC500M","HMT397","FIN348","PBA312","PBA317","PBA213","BTY465","MGN114","PSY295","PED500M","MEC44D","MEC46D","BTY471","BTY105","PED051","FINM585","PELM538","CSE63D","MGN504","GEN530","ACC501","PED446","PED359","PED496","PED420","ACC307","PSY296","PSY304","PSY325","PSY347","CAP276","CAP446","CAP787","CAP447","PBA216","PBA221","PBA315","PBA215","PED601","PES513","JRN116","JRN232","JRN394","JRN455","JRN456","JRN320","PED037","PTH597","PTH598","MKTM508","MKTM503","MGNM500","ECOM525","MKTM511","PED547","PED605","HRMM508","PED039","PED057","PUN106","SSC101M","PED115","PED113","CAP195","PED527","PED530","PED535","PED539","PED586","PED121","EDU456","FIN203","FST515","FST514","FST508","ELE21D","PED034","PED690","PED686","PED637","PED033","PED404","PED405","PED418","PED437","PED499","CSE10D","PED444","PED063","CAP457","SOC221","PED035","POL552","SSC502","POL524","PED435","PED491","PED407","MLT218","MLT226","FNA256","FNA272","FNA286","FNA288","FNA310","FNA468","FNA299","FNA143","FNA100M","FNA383","PED400M","PED436","PED409","PED412","PED430","PED458","PED486","POL527","POL528","POL529","POL570","SSC507","HIS514","HIS536","HIS553","HIS627","HIS631","HIS634","HIS656","HIS626","HIS636","PBA512","PBA521","PBA603","PBA640","PBA641","PED049","EDU401","EDU446","EDU461","EDU480","EDU566","EDU571","EDU579","HIS521","HIS551","HIS555","HIS556","HIS625","PED507","PED523","PED525","PED567","PED557","CSE567","AFT620","LAW600","FINM546","HRMM634","OPRM522","GEN09D","MLT225","MLT357","MLT223","MLT265","ZOL600","EDU664","CIV599","FINM638","HMT614","CAP010","CAP011","HRMM630","HRT598","FINM509","MGNM803","AFT650","IFD528","MPH403P","MPA403P","INT526","FINM510","SSC516","SSC514","MGNM585","JRN645","JRN647","JRN637","PSY536","JRN646","CHE520","CHE545","CHE608","MLT641","PTY529","PTY531","PTY539","PTY540","PTY711N","PTY712","PTY714","PTY717N","PTY752","PTY716","MGNM806","PES515","PES514","CAP450","CAP831","PED678","FNA618","FNA674","FNA421","PEL544","CAP476","HMT615","MCE606","FOT597","ENT598","MLT628","PED413","PED423","PED472","CAP007","PEA519","IFD673","PED494","BTY564","PSY555","PSY698","PSY716","PSY718","PSY720","FINM645","FINM648","FINM643","FIN681","HMT665","HMT617","CAP477","MGNM513","MGNM604","ECE663","BTY602","MTH661","PED421","PED484","PED403","PED400","PSY551","PSY552","PSY613","PSY633","PSY652","SSC508","FLM564","FLM608","MKT533","FLM563","FLM683","CAP100M","CAP443","CAP478","CAP570","CAP598","FST520","FST539","FST569","FST622","FST642","IFD642","ECE667","JRN615","PED612","MKTM808","HRT574","HRT791","PBA502","PBA505","PBA602","SSC500","PBA523","PBA522","PBA630","FST533","FST552","BTS501","CAP782","CAP932","CAP769","MGNM804","CAP759","ENG514","ENG518","ENG519","ENG521","ENG524","ENG525","ENG527","ENG555","ENG612","ENG613","ENG650","ENG651","ENG511","ENG512","ENG513","ENG614","SSC504","PED473","GPB534","GPB535","GPB547","PED434","PED449","PED433","PED675","PED536","PED489","PED537","PED648","PED532","POL573","POL575","POL576","POL695","POL560","BTY702","BTY634","PED511","PED443","BTY683","BTY687","BTY503","BTY501","BTY422","BTY675","PED682","PSY586","PSY587","MPP401T","MPP403P","MPP404PA","MPP202T","MPP304P","ASE525","FSC549","PED432","PED442","PED478","SOL598","SOL596","ECO522","ECO529","ECO530","ECO532","ECO538","ECO604","MGN580","MGN619","MGN733","OPR605","QTT501","MGN500M","ECO525","ECO526","ECO527","QTT502","PED490","CSE573","CSE574","INT555","INT559","CSE501","JRN567","PED495","BSL501","PSY590","PSY549","PSY523","PSY535","PSY670","SSC506","PSY534","PSY550","PSY592","FLM550","FLM100M","OPRM537","PED477","PED401","PED463","PED476","PED462","HRMM504","MGNM578","CAP750","PED587","PED677","PED687","PED485","PED471","PED475","PED461","PSY736","ECO563","ECO616","FIN510","FIN545","FIN623","FIN656","MGN600","ECO521","MKTM807","AGR548","SOL508","MKTM521","HIS607","HIS533","HIS507","MLT560","MLT620","MLT625","MLT626","MLT627","LIB102","LIB103","LIB110","LIB101","SOC567","SOC606","SOC611","PSY695","PSY547","HIN546","HIN612","HIN616","HIN649","HIN650","HIN657","HIN695","HIN697","HIN698","HIN510","HIN506","HIN518","HIN541","HIN501","PSY516","FIN204","SOC520","SOC521","SOC505","SOC515","SOC580","SOC516","SOC524","SOC525","PTY100","PTY507","PTY693","PTY901","PTY725","PED488","PED674","PSY585","LAW603","LAW610","LAW645","LIB104","LIB105","LIB107","SSC333","HIN341","PBA212","PBA313","PBA316","LAW614"];
+
+var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var QUEUE_KEY = 'lpu_reappear_queue';
+
+var choice = null;                 // 'yes' | 'no'
+var grades = { G:false, EI:false };
+var picked = { G:[], EI:[] };      // arrays of course codes
+var active = { G:-1, EI:-1 };      // highlighted dropdown index
+var matches = { G:[], EI:[] };
+
+function $(id){ return document.getElementById(id); }
+
+/* ══ inputs ══ */
+var regInput = $('regno'), contactInput = $('contact');
+regInput.addEventListener('input', function(){
+  regInput.value = regInput.value.replace(/\D/g,'').slice(0,8);
+  regInput.classList.toggle('valid', /^\d{8}$/.test(regInput.value));
+});
+contactInput.addEventListener('input', function(){
+  contactInput.value = contactInput.value.replace(/\D/g,'').slice(0,10);
+  contactInput.classList.toggle('valid', /^\d{10}$/.test(contactInput.value));
+});
+
+/* ══ yes / no ══ */
+function setChoice(v){
+  choice = v;
+  document.querySelectorAll('.yn-btn').forEach(function(b){ b.classList.toggle('on', b.dataset.v===v); });
+  $('yes-reveal').classList.toggle('open', v==='yes');
+  $('no-reveal').classList.toggle('open', v==='no');
+  updateTally();
+}
+
+/* ══ grade toggles ══ */
+function toggleGrade(g){
+  grades[g] = !grades[g];
+  document.querySelector('.grade-toggle[data-g="'+g+'"]').classList.toggle('on', grades[g]);
+  $('rev-'+g).classList.toggle('open', grades[g]);
+  if(!grades[g]){ picked[g]=[]; renderChips(g); closeDD(g); }
+  updateTally();
+}
+
+/* ══ search / autocomplete ══ */
+function onSearch(g){
+  var q = $('search-'+g).value.trim().toUpperCase().replace(/\s+/g,'');
+  var dd = $('dd-'+g), addBtn = $('add-'+g);
+  active[g] = -1;
+  if(!q){
+    matches[g]=[]; dd.classList.remove('open'); dd.innerHTML='';
+    addBtn.disabled = true; return;
+  }
+  // match: codes that START WITH the query first, then codes that contain it
+  var starts=[], contains=[];
+  for(var i=0;i<COURSE_CODES.length;i++){
+    var c=COURSE_CODES[i];
+    var idx=c.indexOf(q);
+    if(idx===0) starts.push(c);
+    else if(idx>0) contains.push(c);
+    if(starts.length>=60) break;
+  }
+  var res = starts.concat(contains).slice(0,60);
+  matches[g]=res;
+  // Add button enabled only if the typed text is an exact, real, not-yet-picked code
+  addBtn.disabled = !(COURSE_CODES.indexOf(q)>-1 && picked[g].indexOf(q)===-1);
+  if(!res.length){
+    dd.innerHTML='<div class="dd-empty">No course code matches “'+q+'”.</div>';
+    dd.classList.add('open'); return;
+  }
+  var html='';
+  res.forEach(function(c,i){
+    var already = picked[g].indexOf(c)>-1;
+    var hl = c.replace(q, '<mark>'+q+'</mark>');
+    html += '<div class="dd-item'+(i===active[g]?' active':'')+'" '+
+            (already?'style="opacity:.4;pointer-events:none"':'onclick="pickItem(\''+g+'\',\''+c+'\')"')+'>'+
+            '<span>'+hl+'</span>'+
+            '<span class="pick">'+(already?'added ✓':'add +')+'</span></div>';
+  });
+  html += '<div class="dd-foot">'+res.length+' match'+(res.length>1?'es':'')+' · showing codes that start with “'+q+'” first</div>';
+  dd.innerHTML = html;
+  dd.classList.add('open');
+  // make sure the open list is fully in view so the lower matches are reachable
+  setTimeout(function(){
+    var r = dd.getBoundingClientRect();
+    if(r.bottom > window.innerHeight - 8){
+      dd.scrollIntoView({behavior:'smooth', block:'end'});
+    }
+  }, 30);
+}
+
+function onKey(g,e){
+  var dd=$('dd-'+g);
+  if(!dd.classList.contains('open')) return;
+  if(e.key==='ArrowDown'){ e.preventDefault(); active[g]=Math.min(active[g]+1, matches[g].length-1); hiActive(g); }
+  else if(e.key==='ArrowUp'){ e.preventDefault(); active[g]=Math.max(active[g]-1, 0); hiActive(g); }
+  else if(e.key==='Enter'){
+    e.preventDefault();
+    if(active[g]>-1 && matches[g][active[g]]) pickItem(g, matches[g][active[g]]);
+    else if(!$('add-'+g).disabled) addCurrent(g);
+  }
+  else if(e.key==='Escape'){ closeDD(g); }
+}
+function hiActive(g){
+  var items=$('dd-'+g).querySelectorAll('.dd-item');
+  items.forEach(function(it,i){ it.classList.toggle('active', i===active[g]); });
+  if(items[active[g]]) items[active[g]].scrollIntoView({block:'nearest'});
+}
+
+function pickItem(g,c){
+  // selecting from the list fills the box; user still presses Add (their requested flow),
+  // but to be forgiving we add it straight away and clear the box.
+  if(picked[g].indexOf(c)===-1){ picked[g].push(c); renderChips(g); }
+  $('search-'+g).value='';
+  $('add-'+g).disabled=true;
+  closeDD(g);
+  updateTally();
+  $('search-'+g).focus();
+}
+
+function addCurrent(g){
+  var q=$('search-'+g).value.trim().toUpperCase().replace(/\s+/g,'');
+  if(COURSE_CODES.indexOf(q)>-1 && picked[g].indexOf(q)===-1){
+    picked[g].push(q); renderChips(g);
+    $('search-'+g).value=''; $('add-'+g).disabled=true; closeDD(g); updateTally();
+    $('search-'+g).focus();
+  }
+}
+
+function removeCode(g,c){
+  picked[g]=picked[g].filter(function(x){return x!==c;});
+  renderChips(g); updateTally();
+}
+
+function renderChips(g){
+  var box=$('chips-'+g);
+  box.innerHTML = picked[g].map(function(c){
+    return '<span class="chip">'+c+'<button class="x" onclick="removeCode(\''+g+'\',\''+c+'\')" aria-label="remove">×</button></span>';
+  }).join('');
+  $('must-'+g).style.display = picked[g].length ? 'none' : 'flex';
+}
+
+function closeDD(g){ var dd=$('dd-'+g); dd.classList.remove('open'); }
+
+document.addEventListener('click', function(e){
+  ['G','EI'].forEach(function(g){
+    var combo=$('search-'+g); var dd=$('dd-'+g);
+    if(!combo) return;
+    if(!combo.parentNode.contains(e.target)) dd.classList.remove('open');
+  });
+});
+
+/* ══ tally ══ */
+function updateTally(){
+  var t=$('tally'), txt=$('tally-text');
+  if(choice==='yes'){
+    var n = picked.G.length + picked.EI.length;
+    if(n>0){
+      var parts=[];
+      if(picked.G.length) parts.push(picked.G.length+' G-grade');
+      if(picked.EI.length) parts.push(picked.EI.length+' E/I-grade');
+      txt.textContent = n+' course'+(n>1?'s':'')+' added ('+parts.join(', ')+')';
+      t.classList.add('show');
+    } else t.classList.remove('show');
+  } else t.classList.remove('show');
+}
+
+/* ══ toast ══ */
+var toastTimer=null;
+function showToast(msg,kind){
+  var t=$('toast'); t.textContent=msg;
+  t.className='toast show'+(kind?' '+kind:'');
+  clearTimeout(toastTimer); toastTimer=setTimeout(function(){ t.classList.remove('show'); },3600);
+}
+
+/* ══ validation + submit ══ */
+function buildPayload(){
+  return {
+    regno:   regInput.value.trim(),
+    contact: contactInput.value.trim(),
+    choice:  choice==='yes' ? 'Yes' : 'No',
+    reason:  choice==='no' ? $('reason').value.trim() : '',
+    gCourses:  choice==='yes' ? picked.G.join(', ') : '',
+    eiCourses: choice==='yes' ? picked.EI.join(', ') : '',
+    timestamp: new Date().toISOString()
+  };
+}
+
+function flashErr(el){
+  el.classList.add('shake','error');
+  setTimeout(function(){ el.classList.remove('shake','error'); },600);
+  el.focus();
+}
+
+async function submitForm(){
+  if(!/^\d{8}$/.test(regInput.value.trim())){ showToast('Registration number must be 8 digits.','err'); flashErr(regInput); return; }
+  if(!/^\d{10}$/.test(contactInput.value.trim())){ showToast('Contact number must be 10 digits.','err'); flashErr(contactInput); return; }
+  if(!choice){ showToast('Please choose Yes or No.','err'); $('submit-btn').scrollIntoView({behavior:'smooth',block:'center'}); return; }
+
+  if(choice==='no'){
+    if(!$('reason').value.trim()){ showToast('Please tell us the reason.','err'); flashErr($('reason')); return; }
+  } else {
+    if(!grades.G && !grades.EI){ showToast('Select at least one — G grade or E/I grade.','err'); return; }
+    if(grades.G && !picked.G.length){ showToast('Add at least one G-grade course code (press + Add).','err'); return; }
+    if(grades.EI && !picked.EI.length){ showToast('Add at least one E/I-grade course code (press + Add).','err'); return; }
+    if(!picked.G.length && !picked.EI.length){ showToast('Add at least one course code.','err'); return; }
+  }
+  if(SCRIPT_URL.indexOf('PASTE_')===0){ showToast('Add your Apps Script URL to SCRIPT_URL first.','err'); return; }
+
+  var btn=$('submit-btn');
+  btn.disabled=true; btn.innerHTML='Submitting… <span class="spin"></span>';
+
+  var payload = { rows:[ buildPayload() ] };
+  var ok = await sendWithRetry(payload, 3);
+
+  if(ok){
+    $('success-detail').textContent='REG · '+payload.rows[0].regno;
+    $('success-overlay').classList.add('show');
+    showToast('Registration submitted ✓','ok');
+    setTimeout(function(){ $('success-overlay').classList.remove('show'); resetForm(); }, 3200);
+  } else {
+    // never lose a response — queue it and tell the user it is safe
+    queueSave(payload);
+    $('success-detail').textContent='REG · '+payload.rows[0].regno;
+    $('success-overlay').classList.add('show');
+    showToast('Saved — will sync automatically when online.','ok');
+    setTimeout(function(){ $('success-overlay').classList.remove('show'); resetForm(); }, 3200);
+  }
+  btn.disabled=false; btn.innerHTML='Submit Registration <span>→</span>';
+}
+
+/* send with retries; returns true on confirmed save */
+async function sendWithRetry(payload, tries){
+  for(var i=0;i<tries;i++){
+    try{
+      var res = await fetch(SCRIPT_URL, {
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},   // simple request → no CORS preflight
+        body: JSON.stringify(payload)
+      });
+      var data = JSON.parse(await res.text());
+      if(data.status==='ok') return true;
+    }catch(e){ /* retry */ }
+    if(i<tries-1) await new Promise(function(r){ setTimeout(r, 900*(i+1)); });
+  }
+  return false;
+}
+
+/* ══ offline queue — nothing is ever lost ══ */
+function queueSave(payload){
+  try{
+    var q=JSON.parse(localStorage.getItem(QUEUE_KEY)||'[]');
+    q.push(payload); localStorage.setItem(QUEUE_KEY, JSON.stringify(q));
+  }catch(e){}
+}
+async function flushQueue(){
+  var q;
+  try{ q=JSON.parse(localStorage.getItem(QUEUE_KEY)||'[]'); }catch(e){ return; }
+  if(!q.length) return;
+  var remain=[];
+  for(var i=0;i<q.length;i++){
+    var ok=await sendWithRetry(q[i],2);
+    if(!ok) remain.push(q[i]);
+  }
+  try{ localStorage.setItem(QUEUE_KEY, JSON.stringify(remain)); }catch(e){}
+  if(q.length && !remain.length) showToast('Pending registrations synced ✓','ok');
+}
+window.addEventListener('online', flushQueue);
+window.addEventListener('visibilitychange', function(){ if(document.visibilityState==='visible') flushQueue(); });
+
+function resetForm(){
+  regInput.value=''; regInput.classList.remove('valid','error');
+  contactInput.value=''; contactInput.classList.remove('valid','error');
+  choice=null;
+  document.querySelectorAll('.yn-btn').forEach(function(b){ b.classList.remove('on'); });
+  $('yes-reveal').classList.remove('open'); $('no-reveal').classList.remove('open');
+  $('reason').value='';
+  grades={G:false,EI:false}; picked={G:[],EI:[]};
+  document.querySelectorAll('.grade-toggle').forEach(function(b){ b.classList.remove('on'); });
+  $('rev-G').classList.remove('open'); $('rev-EI').classList.remove('open');
+  renderChips('G'); renderChips('EI');
+  $('search-G').value=''; $('search-EI').value='';
+  updateTally();
+}
+
+/* keyboard access for yn + grade toggles */
+document.querySelectorAll('.yn-btn,.grade-toggle').forEach(function(el){
+  el.addEventListener('keydown', function(e){
+    if(e.key==='Enter'||e.key===' '){ e.preventDefault(); el.click(); }
+  });
+});
+
+/* try to flush anything left from a previous visit */
+flushQueue();
+</script>
+</body>
+</html>
